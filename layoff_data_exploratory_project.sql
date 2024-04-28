@@ -52,7 +52,7 @@ From layoffs_staging2
 Group by Country
 Order by total desc;
 
--- impact of funds raised
+-- impact of funds raised on layoff percentage
 Select year(date), sum(total_laid_off), sum(funds_raised_millions)
 From layoffs_staging2
 group by year(date)
@@ -95,7 +95,7 @@ From layoffs_staging2
 Group by company, year(date)
 Order by total Desc
 
--- top 5 company layoffs ranked over the years
+-- Company layoffs ranked (Top 5) over the years
 With company_year (company, years, total) as
 (Select company, Year(date), sum(total_laid_off) as total
 From layoffs_staging2
@@ -116,7 +116,7 @@ Where year(date) is not null
 Group by industry, year(date)
 Order by year(date) asc;
 
--- top 5 Industry layoffs ranked over the years
+-- Industry layoffs ranked (Top 5) over the years
 With industry_lay (industry, years, total) as
 (
 Select industry, year(date), sum(total_laid_off) as total
@@ -140,7 +140,7 @@ Where year(date) is not null
 Group by Country, year(date)
 Order by total desc;
 
--- top 5 Country layoffs ranked over the years
+-- Country layoffs ranked (Top 5) over the years
 With country_lay (country, years, total) as
 (Select Country, year(date), sum(total_laid_off) as total
 From layoffs_staging2
@@ -155,13 +155,13 @@ Select *
 From country_year_rank
 Where country_rank <= 5;
 
--- What stage the company was during the layoffs by year
+-- Layoffs by Stage of company over years
 Select Stage, Year(date), sum(total_laid_off) as total
 From layoffs_staging2
 group by stage, year(date)
 Order by total desc
 
--- Top 5 company stage layoffs ranked over the years
+-- Layoffs by Stage of company ranked (Top 5) over the years
 With stage_lay (stage, years, total) as
 (
 Select Stage, Year(date), sum(total_laid_off) as total
